@@ -101,8 +101,8 @@ class AvatarBubble extends StatelessWidget {
       width: size,
       height: size,
       alignment: Alignment.center,
-      decoration:
-          BoxDecoration(color: C.primary.withOpacity(0.10), shape: BoxShape.circle),
+      decoration: BoxDecoration(
+          color: C.primary.withOpacity(0.10), shape: BoxShape.circle),
       child: Text(text, style: TextStyle(fontSize: size * .48)),
     );
   }
@@ -187,7 +187,9 @@ class TinyStat extends StatelessWidget {
       const SizedBox(width: 3),
       Text(label,
           style: const TextStyle(
-              color: Colors.black38, fontSize: 12, fontWeight: FontWeight.w500)),
+              color: Colors.black38,
+              fontSize: 12,
+              fontWeight: FontWeight.w500)),
     ]);
   }
 }
@@ -250,8 +252,9 @@ class ActionButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(18),
-          border:
-              borderColor == null ? null : Border.all(color: borderColor, width: 2),
+          border: borderColor == null
+              ? null
+              : Border.all(color: borderColor, width: 2),
           boxShadow: <BoxShadow>[
             BoxShadow(
                 color: (color ?? Colors.black).withOpacity(.18),
@@ -266,7 +269,9 @@ class ActionButton extends StatelessWidget {
             const SizedBox(width: 8),
             Text(label,
                 style: TextStyle(
-                    color: textColor, fontSize: 15, fontWeight: FontWeight.w700)),
+                    color: textColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700)),
           ],
         ),
       ),
@@ -287,7 +292,10 @@ class FCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: C.primary.withOpacity(0.08)),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: C.primary.withOpacity(.07), blurRadius: 20, offset: const Offset(0, 4))
+          BoxShadow(
+              color: C.primary.withOpacity(.07),
+              blurRadius: 20,
+              offset: const Offset(0, 4))
         ],
       ),
       child: child,
@@ -336,7 +344,8 @@ class CoverPicker extends StatelessWidget {
             Icon(Icons.camera_alt, color: C.primary, size: 28),
             SizedBox(height: 8),
             Text('Add Cover Photo',
-                style: TextStyle(color: C.primary, fontWeight: FontWeight.w700)),
+                style:
+                    TextStyle(color: C.primary, fontWeight: FontWeight.w700)),
             SizedBox(height: 4),
             Text('Upload or choose a photo',
                 style: TextStyle(color: C.muted, fontSize: 11)),
@@ -369,7 +378,9 @@ class DateBox extends StatelessWidget {
           const SizedBox(height: 4),
           Text(value,
               style: const TextStyle(
-                  color: C.foreground, fontSize: 16, fontWeight: FontWeight.w800)),
+                  color: C.foreground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800)),
         ],
       ),
     );
@@ -397,7 +408,8 @@ class ActionChipButton extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            Icon(icon, color: enabled ? Colors.white : Colors.black38, size: 14),
+            Icon(icon,
+                color: enabled ? Colors.white : Colors.black38, size: 14),
             const SizedBox(width: 5),
             Text(label,
                 style: TextStyle(

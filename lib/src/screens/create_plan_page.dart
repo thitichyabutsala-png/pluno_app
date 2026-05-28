@@ -106,8 +106,7 @@ class _CreatePlanPageState extends State<CreatePlanPage> {
                             return ChoicePill(
                               label: item,
                               active: active,
-                              onTap: () =>
-                                  setState(() => destination = label),
+                              onTap: () => setState(() => destination = label),
                             );
                           }).toList(),
                         ),
@@ -169,7 +168,12 @@ class _CreatePlanPageState extends State<CreatePlanPage> {
                 ),
                 SectionLabel('Budget'),
                 PickerGrid(
-                  values: <String>['🎒 Economy\nUnder \$1k', '🏨 Comfort\n\$1k-\$3k', '✈️ Premium\n\$3k-\$8k', '💎 Luxury\n\$8k+'],
+                  values: <String>[
+                    '🎒 Economy\nUnder \$1k',
+                    '🏨 Comfort\n\$1k-\$3k',
+                    '✈️ Premium\n\$3k-\$8k',
+                    '💎 Luxury\n\$8k+'
+                  ],
                   activeStartsWith: budget,
                   onTap: (String v) =>
                       setState(() => budget = v.split('\n').first.substring(3)),
@@ -219,7 +223,8 @@ class ChoicePill extends StatelessWidget {
         decoration: BoxDecoration(
           color: active ? c : c.withOpacity(.08),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: active ? c : c.withOpacity(.20), width: 1.5),
+          border:
+              Border.all(color: active ? c : c.withOpacity(.20), width: 1.5),
         ),
         child: Text(label,
             style: TextStyle(
@@ -316,11 +321,18 @@ class AiPlanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-            colors: <Color>[Color(0xFF0A2E1A), Color(0xFF1A5C38), C.primary, C.secondary]),
+        gradient: const LinearGradient(colors: <Color>[
+          Color(0xFF0A2E1A),
+          Color(0xFF1A5C38),
+          C.primary,
+          C.secondary
+        ]),
         borderRadius: BorderRadius.circular(24),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: const Color(0xFF0A2E1A).withOpacity(.35), blurRadius: 32, offset: const Offset(0, 12))
+          BoxShadow(
+              color: const Color(0xFF0A2E1A).withOpacity(.35),
+              blurRadius: 32,
+              offset: const Offset(0, 12))
         ],
       ),
       child: Column(

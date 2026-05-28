@@ -43,69 +43,78 @@ class _PlunoHomePageState extends State<PlunoHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: C.background,
       body: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 430),
-          color: C.screen,
-          child: Stack(
-            children: <Widget>[
-              Column(
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final bool framed = constraints.maxWidth > 430;
+            return Container(
+              width: constraints.maxWidth < 430 ? constraints.maxWidth : 430,
+              height: framed && constraints.maxHeight > 932
+                  ? 932
+                  : constraints.maxHeight,
+              decoration: BoxDecoration(
+                color: C.screen,
+                boxShadow: framed
+                    ? <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.18),
+                          blurRadius: 80,
+                          offset: const Offset(0, 24),
+                        )
+                      ]
+                    : null,
+              ),
+              child: Stack(
                 children: <Widget>[
-                  _Header(
-                    t: t,
-                    tab: tab,
-                    lang: lang,
-                    onToggleLang: () {
-                      setState(() => lang = lang == 'en' ? 'th' : 'en');
-                    },
+                  Column(
+                    children: <Widget>[
+                      _Header(
+                        t: t,
+                        tab: tab,
+                        lang: lang,
+                        onToggleLang: () {
+                          setState(() => lang = lang == 'en' ? 'th' : 'en');
+                        },
+                      ),
+                      if (tab == 'home' || tab == 'discover')
+                        _CategoryRail(
+                          labels: t.categories,
+                          active: category,
+                          onTap: (int i) => setState(() => category = i),
+                        ),
+                      Expanded(
+                        child: tab == 'profile'
+                            ? ProfileView()
+                            : _TripFeed(
+                                trips: displayedTrips,
+                                t: t,
+                                emptyForSaved: tab == 'saved',
+                                onSave: toggleSave,
+                              ),
+                      ),
+                    ],
                   ),
-                  if (tab == 'home' || tab == 'discover')
-                    _CategoryRail(
-                      labels: t.categories,
-                      active: category,
-                      onTap: (int i) => setState(() => category = i),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: BottomNav(
+                      active: tab,
+                      t: t,
+                      onTap: (String next) => setState(() => tab = next),
+                      onCreate: () => Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                CreatePlanPage()),
+                      ),
                     ),
-                  Expanded(
-                    child: tab == 'profile'
-                        ? ProfileView()
-                        : _TripFeed(
-                            trips: displayedTrips,
-                            t: t,
-                            emptyForSaved: tab == 'saved',
-                            onSave: toggleSave,
-                          ),
                   ),
                 ],
               ),
-              if (tab == 'home' || tab == 'discover')
-                Positioned(
-                  right: 20,
-                  bottom: 96,
-                  child: CircleButton(
-                    color: C.primary,
-                    size: 56,
-                    icon: Icons.add,
-                    iconColor: Colors.white,
-                    shadow: C.primary.withOpacity(0.50),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                          builder: (BuildContext context) => CreatePlanPage()),
-                    ),
-                  ),
-                ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: BottomNav(
-                  active: tab,
-                  t: t,
-                  onTap: (String next) => setState(() => tab = next),
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -129,11 +138,6 @@ class _Header extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(t.greeting(tab),
-                    style: const TextStyle(
-                        color: C.muted,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500)),
                 Text(t.title(tab),
                     style: const TextStyle(
                         color: C.foreground,
@@ -283,15 +287,17 @@ class _TripFeed extends StatelessWidget {
 }
 
 class BottomNav extends StatelessWidget {
-  const BottomNav({this.active, this.t, this.onTap});
+  const BottomNav({this.active, this.t, this.onTap, this.onCreate});
   final String active;
   final T t;
   final ValueChanged<String> onTap;
+  final VoidCallback onCreate;
   @override
   Widget build(BuildContext context) {
     final List<_NavSpec> specs = <_NavSpec>[
       _NavSpec('home', Icons.home),
       _NavSpec('discover', Icons.explore),
+      const _NavSpec('create', Icons.add),
       _NavSpec('saved', Icons.bookmark_border),
       _NavSpec('profile', Icons.person_outline),
     ];
@@ -307,15 +313,32 @@ class BottomNav extends StatelessWidget {
               offset: const Offset(0, -4))
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 7),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: specs.map((_NavSpec spec) {
+          if (spec.key == 'create') {
+            return SizedBox(
+              width: 83,
+              height: 65,
+              child: Center(
+                child: CircleButton(
+                  color: C.primary,
+                  icon: Icons.add,
+                  iconColor: Colors.white,
+                  size: 56,
+                  shadow: C.primary.withOpacity(0.50),
+                  onTap: onCreate,
+                ),
+              ),
+            );
+          }
           final bool selected = active == spec.key;
           return GestureDetector(
             onTap: () => onTap(spec.key),
             child: SizedBox(
-              width: 72,
+              width: 83,
+              height: 65,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

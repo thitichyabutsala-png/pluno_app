@@ -48,7 +48,15 @@ class T {
   }
 
   List<String> get categories => th
-      ? <String>['ทั้งหมด', 'ชายหาด', 'ภูเขา', 'เมือง', 'วัฒนธรรม', 'ผจญภัย', 'ประหยัด']
+      ? <String>[
+          'ทั้งหมด',
+          'ชายหาด',
+          'ภูเขา',
+          'เมือง',
+          'วัฒนธรรม',
+          'ผจญภัย',
+          'ประหยัด'
+        ]
       : categoryKeys;
 
   String nav(String tab) {
@@ -69,7 +77,8 @@ class T {
   }
 
   String get noTrips => th ? 'ไม่พบทริป' : 'No trips found';
-  String get startSaving => th ? 'เริ่มบันทึกทริปที่คุณชอบ' : 'Start saving trips you love';
+  String get startSaving =>
+      th ? 'เริ่มบันทึกทริปที่คุณชอบ' : 'Start saving trips you love';
   String get tryCategory => th ? 'ลองหมวดหมู่อื่น' : 'Try a different category';
   String get remixes => th ? 'รีมิกซ์' : 'remixes';
   String get duration => th ? 'ระยะเวลา' : 'Duration';

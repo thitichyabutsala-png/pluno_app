@@ -8,14 +8,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pluno/main.dart';
 
 void main() {
-  testWidgets('shows the discover trips screen', (WidgetTester tester) async {
+  testWidgets('shows the home trip discovery screen',
+      (WidgetTester tester) async {
     debugNetworkImageHttpClientProvider = () => _MockHttpClient();
     await tester.pumpWidget(PlunoApp());
     await tester.pumpAndSettle();
 
     expect(find.text('Discover Trips'), findsOneWidget);
     expect(find.text('Maldives Paradise'), findsOneWidget);
-    expect(find.text('Discover'), findsOneWidget);
+    expect(find.text('Home'), findsOneWidget);
 
     debugNetworkImageHttpClientProvider = null;
   });

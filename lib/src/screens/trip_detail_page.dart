@@ -32,9 +32,12 @@ class _TripDetailPageState extends State<TripDetailPage> {
             padding: const EdgeInsets.only(bottom: 108),
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
-              _DetailHero(trip: trip, onBack: () => Navigator.pop(context), onSave: () {
-                setState(widget.onSave);
-              }),
+              _DetailHero(
+                  trip: trip,
+                  onBack: () => Navigator.pop(context),
+                  onSave: () {
+                    setState(widget.onSave);
+                  }),
               Transform.translate(
                 offset: const Offset(0, -24),
                 child: Container(
@@ -416,7 +419,8 @@ class BudgetTab extends StatelessWidget {
       _BudgetItem('Accommodation', Icons.hotel, C.blue, .36),
       _BudgetItem('Food & Dining', Icons.restaurant, C.accent, .24),
       _BudgetItem('Activities', Icons.terrain, C.primary, .20),
-      _BudgetItem('Transport', Icons.directions_bus, const Color(0xFF6B7FD4), .12),
+      _BudgetItem(
+          'Transport', Icons.directions_bus, const Color(0xFF6B7FD4), .12),
       _BudgetItem('Shopping', Icons.shopping_cart, C.purple, .08),
     ];
     return Padding(
@@ -428,8 +432,8 @@ class BudgetTab extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              gradient:
-                  const LinearGradient(colors: <Color>[Color(0xFF1F6B45), C.primary, C.secondary]),
+              gradient: const LinearGradient(
+                  colors: <Color>[Color(0xFF1F6B45), C.primary, C.secondary]),
               borderRadius: BorderRadius.circular(24),
             ),
             child: Column(
@@ -571,8 +575,11 @@ class MapPreview extends StatelessWidget {
     return Container(
       height: 170,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-            colors: <Color>[Color(0xFFC8DFCA), Color(0xFFB4CEC4), Color(0xFFC2D5CE)]),
+        gradient: const LinearGradient(colors: <Color>[
+          Color(0xFFC8DFCA),
+          Color(0xFFB4CEC4),
+          Color(0xFFC2D5CE)
+        ]),
         borderRadius: BorderRadius.circular(24),
       ),
       child: Stack(
@@ -628,7 +635,8 @@ class PlaceCard extends StatelessWidget {
                           fontSize: 13, fontWeight: FontWeight.w700)),
                   const SizedBox(height: 2),
                   Text(place.type,
-                      style: const TextStyle(color: Colors.black38, fontSize: 11)),
+                      style:
+                          const TextStyle(color: Colors.black38, fontSize: 11)),
                   const SizedBox(height: 6),
                   Text('★ ${place.rating}',
                       style: const TextStyle(

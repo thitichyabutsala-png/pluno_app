@@ -145,10 +145,9 @@ class TripCard extends StatelessWidget {
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500)),
                         ),
-                        InfoChip(Icons.call_split,
-                            '${trip.remixes} ${t.remixes}',
-                            color: C.accent,
-                            bg: C.accent.withOpacity(0.10)),
+                        InfoChip(
+                            Icons.call_split, '${trip.remixes} ${t.remixes}',
+                            color: C.accent, bg: C.accent.withOpacity(0.10)),
                       ],
                     ),
                   ],
